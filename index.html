@@ -45,12 +45,16 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Style khusus untuk input color agar lebih rapi */
         input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
         input[type="color"]::-webkit-color-swatch { border: none; border-radius: 12px; }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-800" id="app-body">
+
+<!-- Tombol Rahasia di Pojok Kanan Atas - Dibuat lebih terlihat sesuai permintaan -->
+<button onclick="showPage('secret')" class="fixed top-4 right-4 w-8 h-8 flex items-center justify-center bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg text-slate-400 hover:text-indigo-500 hover:border-indigo-200 shadow-sm transition-all z-[60] text-xs">
+    <i class="fas fa-key"></i>
+</button>
 
 <nav id="sidebar" class="fixed bottom-0 left-0 right-0 lg:left-0 lg:top-0 lg:bottom-0 lg:w-64 border-t lg:border-r bg-white border-gray-200 p-4 flex lg:flex-col justify-around lg:justify-start gap-2 z-50 transition-all duration-300">
     <div class="hidden lg:flex items-center gap-3 mb-10 px-4 pt-4">
@@ -112,19 +116,15 @@
                     </div>
                 </div>
 
-                <!-- Link TikTok Statis dengan Fitur Salin -->
-                <div class="mb-8 p-5 rounded-2xl bg-indigo-50/50 border border-indigo-100 flex items-center justify-between gap-4">
+                <div class="mb-8 p-5 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-between gap-4">
                     <div class="flex-1 min-w-0">
-                        <p class="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-1">TikTok Link</p>
-                        <p class="text-sm font-medium truncate text-slate-700" id="tiktok-url">https://vt.tiktok.com/ZSad831xr/</p>
+                        <p class="text-xs font-bold text-rose-600 uppercase tracking-widest mb-1">Status Video</p>
+                        <p class="text-sm font-medium text-slate-700">link vidio yang ini sudah ku hapus.</p>
                     </div>
                     <div class="flex gap-2">
-                        <a href="https://vt.tiktok.com/ZSad831xr/" target="_blank" class="w-10 h-10 flex items-center justify-center bg-white rounded-xl text-indigo-600 shadow-sm hover:bg-indigo-600 hover:text-white transition-all">
-                            <i class="fas fa-external-link-alt text-xs"></i>
-                        </a>
-                        <button onclick="copyToClipboard('https://vt.tiktok.com/ZSad831xr/')" class="w-10 h-10 flex items-center justify-center bg-white rounded-xl text-indigo-600 shadow-sm hover:bg-indigo-600 hover:text-white transition-all">
-                            <i class="fas fa-copy text-xs"></i>
-                        </button>
+                        <div class="w-10 h-10 flex items-center justify-center bg-white rounded-xl text-rose-300">
+                            <i class="fas fa-trash-alt text-xs"></i>
+                        </div>
                     </div>
                 </div>
 
@@ -156,7 +156,6 @@
                 </div>
 
                 <div class="space-y-12">
-                    <!-- Warna Font -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-5">Warna Aksen Teks</label>
                         <div class="flex flex-wrap gap-4">
@@ -171,7 +170,6 @@
                         </div>
                     </div>
 
-                    <!-- Warna Background -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-5">Warna Latar Belakang</label>
                         <div class="flex flex-wrap gap-4">
@@ -199,10 +197,48 @@
             </div>
         </section>
 
+        <!-- Halaman Rahasia (Phone Vault) -->
+        <section id="secret" class="page pt-10">
+            <div id="vault-lock" class="text-center p-10 rounded-[2.5rem] bg-slate-900 shadow-2xl w-full max-w-md border border-slate-800">
+                <div class="w-16 h-16 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto mb-6 text-indigo-400">
+                    <i class="fas fa-lock text-2xl"></i>
+                </div>
+                <h2 class="text-white text-xl font-bold mb-6">Phone Vault</h2>
+                <div class="space-y-4">
+                    <input type="password" id="secretCode" placeholder="Masukkan Kode Rahasia..." 
+                        class="w-full px-6 py-4 rounded-2xl bg-slate-800 border border-slate-700 text-white outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-center tracking-widest">
+                    <button onclick="unlockVault()" class="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all active:scale-95">
+                        Buka Rahasia
+                    </button>
+                </div>
+            </div>
+
+            <div id="vault-content" class="hidden text-center p-10 rounded-[2.5rem] bg-white shadow-2xl w-full max-w-md border border-gray-100 custom-card">
+                <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 text-emerald-600">
+                    <i class="fas fa-phone-alt text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-2">Kontak Rahasia</h2>
+                <p class="text-slate-400 text-sm mb-8">Nomor telepon telah berhasil dibuka.</p>
+                
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Nomor Rahasia</p>
+                    <p class="text-2xl font-bold text-slate-900 tracking-tighter" id="phone-number">085921988922</p>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="copyToClipboard(document.getElementById('phone-number').innerText)" class="flex-1 py-3 bg-slate-900 text-white rounded-xl font-bold text-sm hover:scale-105 transition-transform active:scale-95">
+                        Salin Angka
+                    </button>
+                    <button onclick="showPage('home')" class="px-6 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold text-sm">
+                        Keluar
+                    </button>
+                </div>
+            </div>
+        </section>
+
     </div>
 </main>
 
-<!-- Simple Toast Notification -->
 <div id="toast" class="fixed top-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-2xl transition-all duration-500 opacity-0 translate-y-[-100%] pointer-events-none z-[100] flex items-center gap-3">
     <i id="toast-icon" class="fas fa-check-circle text-emerald-400"></i>
     <span id="toast-msg" class="font-medium">Tersimpan!</span>
@@ -219,7 +255,29 @@
         const navId = 'nav-' + pageId;
         if(document.getElementById(navId)) document.getElementById(navId).classList.add('active');
         
+        if(pageId !== 'secret') {
+            document.getElementById('vault-lock').classList.remove('hidden');
+            document.getElementById('vault-content').classList.add('hidden');
+            document.getElementById('secretCode').value = '';
+        }
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function unlockVault() {
+        const input = document.getElementById('secretCode').value;
+        const code = "0987654321+";
+        
+        if(input === code) {
+            document.getElementById('vault-lock').classList.add('hidden');
+            document.getElementById('vault-content').classList.remove('hidden');
+            showToast("Kode Benar! Rahasia Dibuka.");
+        } else {
+            showToast("Kode salah!");
+            const lock = document.getElementById('vault-lock');
+            lock.classList.add('animate-shake');
+            setTimeout(() => lock.classList.remove('animate-shake'), 500);
+        }
     }
 
     function changeFontColor(color){
@@ -231,7 +289,6 @@
     function changeBgColor(color){
         const body = document.getElementById('app-body');
         body.style.backgroundColor = color;
-        
         const isDark = isColorDark(color);
         const cards = document.querySelectorAll('.custom-card');
         const sidebar = document.getElementById('sidebar');
@@ -244,13 +301,13 @@
             cards.forEach(c => {
                 c.classList.add('bg-slate-800', 'border-slate-700');
                 c.classList.remove('bg-white', 'border-gray-100');
-                // Mengubah warna teks dalam kartu agar terlihat saat background gelap
                 c.querySelectorAll('p, h2, span, label').forEach(el => {
-                   if (!el.classList.contains('text-indigo-600') && !el.classList.contains('text-amber-600')) {
+                   if (!el.classList.contains('text-indigo-600') && !el.classList.contains('text-amber-600') && !el.classList.contains('text-rose-600')) {
                        el.style.color = '#cbd5e1'; 
                    }
                 });
-                c.querySelector('h2').style.color = 'white';
+                const h2 = c.querySelector('h2');
+                if(h2) h2.style.color = 'white';
             });
         } else {
             sidebar.classList.add('bg-white', 'border-gray-200');
@@ -262,9 +319,7 @@
                 c.querySelectorAll('p, h2, span, label').forEach(el => el.style.color = '');
             });
         }
-
         localStorage.setItem('appBgColor', color);
-        showToast("Tema latar diperbarui");
     }
 
     function isColorDark(color){
@@ -285,26 +340,23 @@
         dummy.select();
         document.execCommand("copy");
         document.body.removeChild(dummy);
-        showToast("Link disalin!");
+        showToast("Angka disalin ke clipboard!");
     }
 
     function addNote(){
         const input = document.getElementById('noteInput');
         const val = input.value.trim();
         if(!val) return;
-        
         notes.unshift({id: Date.now(), text: val, date: new Date().toLocaleDateString('id-ID')});
         input.value = '';
         saveNotes(); 
         renderNotes();
-        showToast("Catatan ditambahkan!");
     }
 
     function deleteNote(id){ 
         notes = notes.filter(n=>n.id!==id); 
         saveNotes(); 
         renderNotes();
-        showToast("Catatan dihapus");
     }
 
     function saveNotes(){ localStorage.setItem('appNotes', JSON.stringify(notes)); }
@@ -312,24 +364,20 @@
     function renderNotes(){
         const container = document.getElementById('notesContainer');
         if(notes.length===0){
-            container.innerHTML=`
-                <div class="text-center py-20 bg-slate-50/50 rounded-[2rem] border-2 border-dashed border-slate-200">
-                    <i class="fas fa-inbox text-slate-300 text-4xl mb-4"></i>
-                    <p class="text-slate-400 font-medium">Belum ada catatan hari ini.</p>
-                </div>`;
+            container.innerHTML=`<div class="text-center py-20 opacity-40"><p>Belum ada catatan.</p></div>`;
             return;
         }
         container.innerHTML = notes.map(n=>`
-            <div class="group flex items-center justify-between p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-200 transition-all hover:shadow-lg hover:shadow-indigo-50/50">
+            <div class="group flex items-center justify-between p-5 rounded-2xl bg-slate-50 border border-slate-100">
                 <div class="flex-1 min-w-0 pr-4">
                     <p class="text-sm font-medium truncate text-slate-700">${n.text}</p>
-                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">${n.date}</span>
+                    <span class="text-[10px] uppercase text-slate-400 font-bold">${n.date}</span>
                 </div>
                 <div class="flex items-center gap-1">
-                    <button onclick="copyToClipboard('${n.text}')" class="w-8 h-8 rounded-lg text-slate-400 hover:text-indigo-500 hover:bg-white transition-all opacity-0 group-hover:opacity-100">
+                    <button onclick="copyToClipboard('${n.text}')" class="w-8 h-8 rounded-lg text-slate-400 hover:text-indigo-500 transition-all opacity-0 group-hover:opacity-100">
                         <i class="fas fa-copy text-xs"></i>
                     </button>
-                    <button onclick="deleteNote(${n.id})" class="w-8 h-8 rounded-lg text-red-300 hover:text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100">
+                    <button onclick="deleteNote(${n.id})" class="w-8 h-8 rounded-lg text-red-300 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
                         <i class="fas fa-trash-alt text-xs"></i>
                     </button>
                 </div>
@@ -348,8 +396,7 @@
     }
 
     function resetApp(){ 
-        const confirmReset = confirm("Hapus semua data dan reset tampilan ke awal?");
-        if(confirmReset){ 
+        if(confirm("Hapus semua data?")){ 
             localStorage.clear(); 
             window.location.reload(); 
         } 
@@ -364,5 +411,15 @@
     };
 </script>
 
+<style>
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        75% { transform: translateX(10px); }
+    }
+    .animate-shake { animation: shake 0.2s ease-in-out 0s 2; }
+</style>
+
 </body>
 </html>
+
