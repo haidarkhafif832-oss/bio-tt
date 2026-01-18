@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindFlow Custom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            transition: background-color 0.4s ease, color 0.4s ease; 
+        }
+
+        .page { display: none; }
+        .page.active { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 70vh; 
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-item.active { 
+            background-color: #4f46e5; 
+            color: white !important; 
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+        }
+
+        .custom-card { 
+            transition: background-color 0.4s ease, border-color 0.4s ease, transform 0.2s ease; 
+        }
+        
+        .custom-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Style khusus untuk input color agar lebih rapi */
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 12px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800" id="app-body">
+
+<nav id="sidebar" class="fixed bottom-0 left-0 right-0 lg:left-0 lg:top-0 lg:bottom-0 lg:w-64 border-t lg:border-r bg-white border-gray-200 p-4 flex lg:flex-col justify-around lg:justify-start gap-2 z-50 transition-all duration-300">
+    <div class="hidden lg:flex items-center gap-3 mb-10 px-4 pt-4">
+        <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
+            <i class="fas fa-brain text-white"></i>
+        </div>
+        <span class="font-bold text-xl tracking-tight text-slate-900" id="brand-name">MindFlow</span>
+    </div>
+
+    <button onclick="showPage('home')" id="nav-home" class="nav-item active flex items-center gap-3 px-5 py-3 rounded-xl transition-all w-full text-slate-500 hover:bg-slate-50">
+        <i class="fas fa-home w-5"></i>
+        <span class="hidden lg:inline font-semibold">Beranda</span>
+    </button>
+    
+    <button onclick="showPage('links')" id="nav-links" class="nav-item flex items-center gap-3 px-5 py-3 rounded-xl transition-all w-full text-slate-500 hover:bg-slate-50">
+        <i class="fas fa-link w-5"></i>
+        <span class="hidden lg:inline font-semibold">Catatan</span>
+    </button>
+    
+    <button onclick="showPage('settings')" id="nav-settings" class="nav-item flex items-center gap-3 px-5 py-3 rounded-xl transition-all w-full text-slate-500 hover:bg-slate-50">
+        <i class="fas fa-palette w-5"></i>
+        <span class="hidden lg:inline font-semibold">Tampilan</span>
+    </button>
+</nav>
+
+<main class="lg:ml-64 p-4 md:p-12 pb-24 lg:pb-12">
+    <div class="max-w-3xl mx-auto" id="main-content">
+
+        <!-- Halaman Beranda -->
+        <section id="home" class="page active pt-10">
+            <div class="text-center p-10 rounded-[2.5rem] bg-white shadow-2xl shadow-indigo-100/50 border border-gray-100 w-full max-w-md custom-card">
+                <div class="relative w-24 h-24 mx-auto mb-8">
+                    <div class="absolute inset-0 bg-indigo-500 blur-2xl opacity-20 animate-pulse"></div>
+                    <div class="relative w-full h-full bg-black rounded-3xl flex items-center justify-center shadow-xl">
+                        <i class="fab fa-tiktok text-4xl text-white"></i>
+                    </div>
+                </div>
+                <h1 class="text-3xl font-extrabold mb-2 tracking-tight">Halo, Teman!</h1>
+                <p class="text-xl font-medium text-indigo-600 mb-6">@haiiiiiidar08</p>
+                <p class="text-slate-500 leading-relaxed">
+                    Terimakasih sudah cek bio ku, <br>nanti follow kalo udah nanti ku follow balik. ✨
+                </p>
+                <a href="https://vt.tiktok.com/ZSad831xr/" target="_blank" class="mt-8 inline-block w-full py-4 bg-black text-white rounded-2xl font-bold hover:scale-[1.02] transition-transform active:scale-95">
+                    Kunjungi Profil
+                </a>
+            </div>
+        </section>
+
+        <!-- Halaman Catatan -->
+        <section id="links" class="page pt-6">
+            <div class="w-full bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-gray-100 custom-card">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
+                        <i class="fas fa-link text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Tempat link yang sudah di sediakan</h2>
+                        <p class="text-slate-400 text-sm">Klik atau salin tautan penting di bawah ini.</p>
+                    </div>
+                </div>
+
+                <!-- Link TikTok Statis dengan Fitur Salin -->
+                <div class="mb-8 p-5 rounded-2xl bg-indigo-50/50 border border-indigo-100 flex items-center justify-between gap-4">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-1">TikTok Link</p>
+                        <p class="text-sm font-medium truncate text-slate-700" id="tiktok-url">https://vt.tiktok.com/ZSad831xr/</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="https://vt.tiktok.com/ZSad831xr/" target="_blank" class="w-10 h-10 flex items-center justify-center bg-white rounded-xl text-indigo-600 shadow-sm hover:bg-indigo-600 hover:text-white transition-all">
+                            <i class="fas fa-external-link-alt text-xs"></i>
+                        </a>
+                        <button onclick="copyToClipboard('https://vt.tiktok.com/ZSad831xr/')" class="w-10 h-10 flex items-center justify-center bg-white rounded-xl text-indigo-600 shadow-sm hover:bg-indigo-600 hover:text-white transition-all">
+                            <i class="fas fa-copy text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 mb-8">
+                    <input type="text" id="noteInput" placeholder="Tambah link atau catatan lain..." 
+                        class="flex-1 px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-medium">
+                    <button onclick="addNote()" class="bg-indigo-600 text-white w-14 rounded-2xl hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all active:scale-90">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+
+                <div id="notesContainer" class="space-y-4 max-h-[400px] overflow-y-auto pr-2 no-scrollbar">
+                    <!-- Notes injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Halaman Pengaturan -->
+        <section id="settings" class="page pt-6">
+            <div class="w-full bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-gray-100 custom-card">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600">
+                        <i class="fas fa-magic text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Personalisasi</h2>
+                        <p class="text-slate-400 text-sm">Ubah suasana aplikasi sesuai mood kamu.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-12">
+                    <!-- Warna Font -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-5">Warna Aksen Teks</label>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="changeFontColor('#1e293b')" class="w-12 h-12 rounded-2xl border-4 border-white shadow-lg bg-slate-800 hover:scale-110 transition-transform"></button>
+                            <button onclick="changeFontColor('#4f46e5')" class="w-12 h-12 rounded-2xl border-4 border-white shadow-lg bg-indigo-600 hover:scale-110 transition-transform"></button>
+                            <button onclick="changeFontColor('#e11d48')" class="w-12 h-12 rounded-2xl border-4 border-white shadow-lg bg-rose-600 hover:scale-110 transition-transform"></button>
+                            <button onclick="changeFontColor('#059669')" class="w-12 h-12 rounded-2xl border-4 border-white shadow-lg bg-emerald-600 hover:scale-110 transition-transform"></button>
+                            <div class="relative w-12 h-12">
+                                <input type="color" onchange="changeFontColor(this.value)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                <div class="w-full h-full rounded-2xl border-4 border-white shadow-lg bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Warna Background -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-5">Warna Latar Belakang</label>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="changeBgColor('#f8fafc')" class="w-12 h-12 rounded-2xl border-2 border-slate-100 bg-[#f8fafc] hover:scale-110 transition-transform"></button>
+                            <button onclick="changeBgColor('#fef2f2')" class="w-12 h-12 rounded-2xl border-2 border-slate-100 bg-[#fef2f2] hover:scale-110 transition-transform"></button>
+                            <button onclick="changeBgColor('#f0fdf4')" class="w-12 h-12 rounded-2xl border-2 border-slate-100 bg-[#f0fdf4] hover:scale-110 transition-transform"></button>
+                            <button onclick="changeBgColor('#eff6ff')" class="w-12 h-12 rounded-2xl border-2 border-slate-100 bg-[#eff6ff] hover:scale-110 transition-transform"></button>
+                            <button onclick="changeBgColor('#0f172a')" class="w-12 h-12 rounded-2xl border-2 border-slate-100 bg-[#0f172a] hover:scale-110 transition-transform"></button>
+                            <div class="relative w-12 h-12">
+                                <input type="color" id="bgPicker" onchange="changeBgColor(this.value)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                <div class="w-full h-full rounded-2xl border-2 border-dashed border-slate-300 flex items-center justify-center">
+                                    <i class="fas fa-eye-dropper text-slate-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-10 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <span class="text-sm text-slate-400">Data tersimpan di browser ini.</span>
+                        <button onclick="resetApp()" class="px-6 py-2 rounded-xl text-red-500 hover:bg-red-50 font-bold transition-all text-sm uppercase tracking-wider">
+                            Reset Pabrik
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<!-- Simple Toast Notification -->
+<div id="toast" class="fixed top-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-2xl transition-all duration-500 opacity-0 translate-y-[-100%] pointer-events-none z-[100] flex items-center gap-3">
+    <i id="toast-icon" class="fas fa-check-circle text-emerald-400"></i>
+    <span id="toast-msg" class="font-medium">Tersimpan!</span>
+</div>
+
+<script>
+    let notes = JSON.parse(localStorage.getItem('appNotes')) || [];
+
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        
+        document.getElementById(pageId).classList.add('active');
+        const navId = 'nav-' + pageId;
+        if(document.getElementById(navId)) document.getElementById(navId).classList.add('active');
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function changeFontColor(color){
+        document.getElementById('app-body').style.color = color;
+        localStorage.setItem('appFontColor', color);
+        showToast("Warna teks diperbarui");
+    }
+
+    function changeBgColor(color){
+        const body = document.getElementById('app-body');
+        body.style.backgroundColor = color;
+        
+        const isDark = isColorDark(color);
+        const cards = document.querySelectorAll('.custom-card');
+        const sidebar = document.getElementById('sidebar');
+        const brand = document.getElementById('brand-name');
+
+        if(isDark){
+            sidebar.classList.add('bg-slate-900', 'border-slate-800');
+            sidebar.classList.remove('bg-white', 'border-gray-200');
+            brand.style.color = 'white';
+            cards.forEach(c => {
+                c.classList.add('bg-slate-800', 'border-slate-700');
+                c.classList.remove('bg-white', 'border-gray-100');
+                // Mengubah warna teks dalam kartu agar terlihat saat background gelap
+                c.querySelectorAll('p, h2, span, label').forEach(el => {
+                   if (!el.classList.contains('text-indigo-600') && !el.classList.contains('text-amber-600')) {
+                       el.style.color = '#cbd5e1'; 
+                   }
+                });
+                c.querySelector('h2').style.color = 'white';
+            });
+        } else {
+            sidebar.classList.add('bg-white', 'border-gray-200');
+            sidebar.classList.remove('bg-slate-900', 'border-slate-800');
+            brand.style.color = '#0f172a';
+            cards.forEach(c => {
+                c.classList.add('bg-white', 'border-gray-100');
+                c.classList.remove('bg-slate-800', 'border-slate-700');
+                c.querySelectorAll('p, h2, span, label').forEach(el => el.style.color = '');
+            });
+        }
+
+        localStorage.setItem('appBgColor', color);
+        showToast("Tema latar diperbarui");
+    }
+
+    function isColorDark(color){
+        if(!color) return false;
+        if(color.startsWith('#')) {
+            let r = parseInt(color.slice(1,3),16);
+            let g = parseInt(color.slice(3,5),16);
+            let b = parseInt(color.slice(5,7),16);
+            return (r*299 + g*587 + b*114)/1000 < 128;
+        }
+        return false;
+    }
+
+    function copyToClipboard(text) {
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        showToast("Link disalin!");
+    }
+
+    function addNote(){
+        const input = document.getElementById('noteInput');
+        const val = input.value.trim();
+        if(!val) return;
+        
+        notes.unshift({id: Date.now(), text: val, date: new Date().toLocaleDateString('id-ID')});
+        input.value = '';
+        saveNotes(); 
+        renderNotes();
+        showToast("Catatan ditambahkan!");
+    }
+
+    function deleteNote(id){ 
+        notes = notes.filter(n=>n.id!==id); 
+        saveNotes(); 
+        renderNotes();
+        showToast("Catatan dihapus");
+    }
+
+    function saveNotes(){ localStorage.setItem('appNotes', JSON.stringify(notes)); }
+
+    function renderNotes(){
+        const container = document.getElementById('notesContainer');
+        if(notes.length===0){
+            container.innerHTML=`
+                <div class="text-center py-20 bg-slate-50/50 rounded-[2rem] border-2 border-dashed border-slate-200">
+                    <i class="fas fa-inbox text-slate-300 text-4xl mb-4"></i>
+                    <p class="text-slate-400 font-medium">Belum ada catatan hari ini.</p>
+                </div>`;
+            return;
+        }
+        container.innerHTML = notes.map(n=>`
+            <div class="group flex items-center justify-between p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-200 transition-all hover:shadow-lg hover:shadow-indigo-50/50">
+                <div class="flex-1 min-w-0 pr-4">
+                    <p class="text-sm font-medium truncate text-slate-700">${n.text}</p>
+                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">${n.date}</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <button onclick="copyToClipboard('${n.text}')" class="w-8 h-8 rounded-lg text-slate-400 hover:text-indigo-500 hover:bg-white transition-all opacity-0 group-hover:opacity-100">
+                        <i class="fas fa-copy text-xs"></i>
+                    </button>
+                    <button onclick="deleteNote(${n.id})" class="w-8 h-8 rounded-lg text-red-300 hover:text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100">
+                        <i class="fas fa-trash-alt text-xs"></i>
+                    </button>
+                </div>
+            </div>`).join('');
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        document.getElementById('toast-msg').innerText = msg;
+        t.style.opacity = '1';
+        t.style.transform = 'translateY(0) translateX(-50%)';
+        setTimeout(() => {
+            t.style.opacity = '0';
+            t.style.transform = 'translateY(-100%) translateX(-50%)';
+        }, 2500);
+    }
+
+    function resetApp(){ 
+        const confirmReset = confirm("Hapus semua data dan reset tampilan ke awal?");
+        if(confirmReset){ 
+            localStorage.clear(); 
+            window.location.reload(); 
+        } 
+    }
+
+    window.onload = ()=>{
+        const savedFont = localStorage.getItem('appFontColor');
+        const savedBg = localStorage.getItem('appBgColor');
+        if(savedFont) changeFontColor(savedFont);
+        if(savedBg) changeBgColor(savedBg);
+        renderNotes();
+    };
+</script>
+
+</body>
+</html>
